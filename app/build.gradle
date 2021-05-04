@@ -53,6 +53,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
     //testing
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
