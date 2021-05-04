@@ -1,7 +1,7 @@
 package com.kikulabs.moviecatalogue.data
 
 data class DataEntity (
-    var movieId: String,
+    var id: String,
     var title: String,
     var poster: Int,
     var releaseDate: String,
