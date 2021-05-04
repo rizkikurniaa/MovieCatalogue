@@ -1,18 +1,20 @@
 package com.kikulabs.moviecatalogue.ui.content.tvshow
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.kikulabs.moviecatalogue.R
-import com.kikulabs.moviecatalogue.databinding.FragmentMovieBinding
+import com.kikulabs.moviecatalogue.data.DataEntity
 import com.kikulabs.moviecatalogue.databinding.FragmentTvShowBinding
 import com.kikulabs.moviecatalogue.ui.content.ContentAdapter
+import com.kikulabs.moviecatalogue.ui.content.ContentCallback
 import com.kikulabs.moviecatalogue.ui.content.ContentViewModel
+import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
 
-class TvShowFragment : Fragment() {
+class TvShowFragment : Fragment(), ContentCallback {
 
     private lateinit var fragmentTvShowBinding: FragmentTvShowBinding
 
@@ -35,7 +37,7 @@ class TvShowFragment : Fragment() {
             val movies = viewModel.getTvShow()
 
             val movieAdapter =
-                ContentAdapter()
+                ContentAdapter(this@TvShowFragment)
             movieAdapter.setMovies(movies)
 
             with(fragmentTvShowBinding.rvTvShow) {
@@ -44,6 +46,14 @@ class TvShowFragment : Fragment() {
                 adapter = movieAdapter
             }
         }
+    }
+
+    override fun onItemClicked(data: DataEntity) {
+        startActivity(
+            Intent(context, DetailMovieActivity::class.java)
+                .putExtra(DetailMovieActivity.EXTRA_MOVIE, data.id)
+                .putExtra(DetailMovieActivity.EXTRA_TYPE, "TV_SHOW")
+        )
     }
 
 }

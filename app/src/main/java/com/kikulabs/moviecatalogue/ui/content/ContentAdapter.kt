@@ -1,6 +1,5 @@
 package com.kikulabs.moviecatalogue.ui.content
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +8,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.kikulabs.moviecatalogue.R
 import com.kikulabs.moviecatalogue.data.DataEntity
 import com.kikulabs.moviecatalogue.databinding.ItemsContentBinding
-import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
 
-class ContentAdapter : RecyclerView.Adapter<ContentAdapter.MovieViewHolder>() {
+class ContentAdapter(private val callback: ContentCallback) :
+    RecyclerView.Adapter<ContentAdapter.MovieViewHolder>() {
+
     private var listMovies = ArrayList<DataEntity>()
 
     fun setMovies(data: List<DataEntity>?) {
@@ -21,21 +21,23 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.MovieViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding =
+            ItemsContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(
             itemsMovieBinding
         )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val course = listMovies[position]
-        holder.bind(course)
+        val movie = listMovies[position]
+        holder.bind(movie)
     }
 
     override fun getItemCount(): Int = listMovies.size
 
+    inner class MovieViewHolder(private val binding: ItemsContentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    class MovieViewHolder(private val binding: ItemsContentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movies: DataEntity) {
             with(binding) {
                 tvTitle.text = movies.title
@@ -43,18 +45,17 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.MovieViewHolder>() {
                 tvRating.text = movies.rating
                 tvOverviewValue.text = movies.overview
 
-                cvOverview.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movies.movieId)
-                    itemView.context.startActivity(intent)
-                }
-
                 Glide.with(itemView.context)
                     .load(movies.poster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error))
+                            .error(R.drawable.ic_error)
+                    )
                     .into(ivPoster)
+
+                cvOverview.setOnClickListener {
+                    callback.onItemClicked(movies)
+                }
             }
         }
     }
