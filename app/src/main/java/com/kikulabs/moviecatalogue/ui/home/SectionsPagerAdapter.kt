@@ -9,7 +9,8 @@ import com.kikulabs.moviecatalogue.R
 import com.kikulabs.moviecatalogue.ui.content.movie.MovieFragment
 import com.kikulabs.moviecatalogue.ui.content.tvshow.TvShowFragment
 
-class SectionsPagerAdapter (private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
@@ -23,7 +24,8 @@ class SectionsPagerAdapter (private val mContext: Context, fm: FragmentManager) 
             else -> Fragment()
         }
 
-    override fun getPageTitle(position: Int): CharSequence? = mContext.resources.getString(TAB_TITLES[position])
+    override fun getPageTitle(position: Int): CharSequence? =
+        mContext.resources.getString(TAB_TITLES[position])
 
     override fun getCount(): Int = 2
 
