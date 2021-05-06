@@ -6,4 +6,7 @@
     <string name="overview">Overview</string>
     <string name="home">Home</string>
     <string name="tv_show">Tv Show</string>
+    <string name="movies_poster">Movie\'s Poster</string>
+    <string name="release_date">Release date</string>
+    <string name="rating">Rating</string>
 </resources>
