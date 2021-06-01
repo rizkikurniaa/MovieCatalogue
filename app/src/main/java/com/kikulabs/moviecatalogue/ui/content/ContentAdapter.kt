@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.kikulabs.moviecatalogue.BuildConfig.IMAGE_URL
 import com.kikulabs.moviecatalogue.R
-import com.kikulabs.moviecatalogue.data.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
 import com.kikulabs.moviecatalogue.databinding.ItemsContentBinding
+import com.kikulabs.moviecatalogue.utils.DateChange
 
 class ContentAdapter(private val callback: ContentCallback) :
     RecyclerView.Adapter<ContentAdapter.MovieViewHolder>() {
@@ -37,16 +39,18 @@ class ContentAdapter(private val callback: ContentCallback) :
 
     inner class MovieViewHolder(private val binding: ItemsContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val dateChange = DateChange()
 
         fun bind(movies: DataEntity) {
             with(binding) {
                 tvTitle.text = movies.title
-                tvReleaseDate.text = movies.releaseDate
-                tvRating.text = movies.rating
+                tvReleaseDate.text = dateChange.changeFormatDate(movies.releaseDate)
+                tvRating.text = movies.rating.toString()
                 tvOverviewValue.text = movies.overview
 
                 Glide.with(itemView.context)
-                    .load(movies.poster)
+                    .asBitmap()
+                    .load(IMAGE_URL + movies.poster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

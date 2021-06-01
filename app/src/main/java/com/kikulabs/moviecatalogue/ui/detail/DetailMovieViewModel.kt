@@ -1,42 +1,30 @@
 package com.kikulabs.moviecatalogue.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.kikulabs.moviecatalogue.data.DataEntity
-import com.kikulabs.moviecatalogue.utils.DataDummy
+import com.kikulabs.moviecatalogue.data.source.MovieCatalogueRepository
+import com.kikulabs.moviecatalogue.data.source.local.entity.DetailEntity
 
-class DetailMovieViewModel: ViewModel() {
-
-    private lateinit var movieId: String
-    private lateinit var tvShowId: String
-
-    fun setSelectedMovie(movieId: String) {
-        this.movieId = movieId
+class DetailMovieViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) :
+    ViewModel() {
+    companion object {
+        const val MOVIE = "MOVIE"
+        const val TV_SHOW = "TV_SHOW"
     }
 
-    fun setSelectedTvShow(tvShowId: String) {
-        this.tvShowId = tvShowId
-    }
+    private lateinit var detailData: LiveData<DetailEntity>
 
-    fun getMovie(): DataEntity {
-        lateinit var movie: DataEntity
-        val moviesEntities = DataDummy.generateDummyMovies()
-        for (movieEntity in moviesEntities) {
-            if (movieEntity.id == movieId) {
-                movie = movieEntity
+    fun setSelected(id: String, type: String) {
+        when (type) {
+            MOVIE -> {
+                detailData = movieCatalogueRepository.getDetailMovie(id)
+            }
+            TV_SHOW -> {
+                detailData = movieCatalogueRepository.getDetailTvShow(id)
             }
         }
-        return movie
     }
 
-    fun getTvShow(): DataEntity {
-        lateinit var tvShow: DataEntity
-        val tvShowsEntities = DataDummy.generateDummyTvShows()
-        for (tvShowEntity in tvShowsEntities) {
-            if (tvShowEntity.id == tvShowId) {
-                tvShow = tvShowEntity
-            }
-        }
-        return tvShow
-    }
+    fun getDetail() = detailData
 
 }
