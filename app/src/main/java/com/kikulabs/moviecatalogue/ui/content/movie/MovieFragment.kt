@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kikulabs.moviecatalogue.data.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
 import com.kikulabs.moviecatalogue.databinding.FragmentMovieBinding
 import com.kikulabs.moviecatalogue.ui.content.ContentAdapter
 import com.kikulabs.moviecatalogue.ui.content.ContentCallback
 import com.kikulabs.moviecatalogue.ui.content.ContentViewModel
 import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
+import com.kikulabs.moviecatalogue.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment(), ContentCallback {
 
@@ -30,16 +33,19 @@ class MovieFragment : Fragment(), ContentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-
+            val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[ContentViewModel::class.java]
-            val movies = viewModel.getMovie()
-
             val movieAdapter =
                 ContentAdapter(this@MovieFragment)
-            movieAdapter.setMovies(movies)
+
+            viewModel.getMovie().observe(viewLifecycleOwner, { movies ->
+                showProgressBar(false)
+                movieAdapter.setMovies(movies)
+                movieAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentMovieBinding.rvMovie) {
                 layoutManager = LinearLayoutManager(context)
@@ -47,6 +53,11 @@ class MovieFragment : Fragment(), ContentCallback {
                 adapter = movieAdapter
             }
         }
+    }
+
+    private fun showProgressBar(state: Boolean) {
+        fragmentMovieBinding.progressBar.isVisible = state
+        fragmentMovieBinding.rvMovie.isInvisible = state
     }
 
     override fun onItemClicked(data: DataEntity) {

@@ -1,11 +1,10 @@
 package com.kikulabs.moviecatalogue.ui.content
 
 import androidx.lifecycle.ViewModel
-import com.kikulabs.moviecatalogue.data.DataEntity
-import com.kikulabs.moviecatalogue.utils.DataDummy
+import com.kikulabs.moviecatalogue.data.source.MovieCatalogueRepository
 
-class ContentViewModel: ViewModel() {
-    fun getMovie() : List<DataEntity> = DataDummy.generateDummyMovies()
-
-    fun getTvShow() : List<DataEntity> = DataDummy.generateDummyTvShows()
+class ContentViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) :
+    ViewModel() {
+    fun getMovie() = movieCatalogueRepository.getMovies()
+    fun getTvShow() = movieCatalogueRepository.getTvShows()
 }
