@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.kikulabs.moviecatalogue.R
 import com.kikulabs.moviecatalogue.utils.DataDummy
 import com.kikulabs.moviecatalogue.utils.EspressoIdlingResource
+import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -18,8 +19,6 @@ import org.junit.Test
 class HomeActivityTest {
     private val dummyMovies = DataDummy.getMovies()
     private val dummyTvShows = DataDummy.getTvShows()
-    private val dummyDetailMovie = DataDummy.getDetailMovie()
-    private val dummyDetailTvShow = DataDummy.getDetailTvShow()
 
     @Before
     fun setup() {
@@ -51,16 +50,16 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyDetailMovie.title)))
+        onView(withId(R.id.tv_title)).check(matches(not(withText(""))))
         onView(withId(R.id.cv_poster)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release_date)).check(matches(withText(dummyDetailMovie.releaseDate)))
+        onView(withId(R.id.tv_release_date)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_rating)).check(matches(withText(dummyDetailMovie.rating.toString())))
+        onView(withId(R.id.tv_rating)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_language)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_language)).check(matches(withText(dummyDetailMovie.language)))
+        onView(withId(R.id.tv_language)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_overview_value)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_overview_value)).check(matches(withText(dummyDetailMovie.overview)))
+        onView(withId(R.id.tv_overview_value)).check(matches(not(withText(""))))
     }
 
     @Test
@@ -84,15 +83,15 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyDetailTvShow.title)))
+        onView(withId(R.id.tv_title)).check(matches(not(withText(""))))
         onView(withId(R.id.cv_poster)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release_date)).check(matches(withText(dummyDetailTvShow.releaseDate)))
+        onView(withId(R.id.tv_release_date)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_rating)).check(matches(withText(dummyDetailTvShow.rating.toString())))
+        onView(withId(R.id.tv_rating)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_language)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_language)).check(matches(withText(dummyDetailTvShow.language)))
+        onView(withId(R.id.tv_language)).check(matches(not(withText(""))))
         onView(withId(R.id.tv_overview_value)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_overview_value)).check(matches(withText(dummyDetailTvShow.overview)))
+        onView(withId(R.id.tv_overview_value)).check(matches(not(withText(""))))
     }
 }
