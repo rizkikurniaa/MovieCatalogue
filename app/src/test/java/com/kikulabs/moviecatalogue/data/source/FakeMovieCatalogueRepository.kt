@@ -2,7 +2,7 @@ package com.kikulabs.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.MovieEntity
 import com.kikulabs.moviecatalogue.data.source.local.entity.DetailEntity
 import com.kikulabs.moviecatalogue.data.source.remote.RemoteDataSource
 import com.kikulabs.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
@@ -13,16 +13,16 @@ import com.kikulabs.moviecatalogue.data.source.remote.response.tv.TvShowList
 class FakeMovieCatalogueRepository(private val remoteDataSource: RemoteDataSource) :
     MovieCatalogueDataSource {
 
-    override fun getMovies(): LiveData<List<DataEntity>> {
-        val movieResult = MutableLiveData<List<DataEntity>>()
+    override fun getMovies(): LiveData<List<MovieEntity>> {
+        val movieResult = MutableLiveData<List<MovieEntity>>()
 
         remoteDataSource.getMovies(object : RemoteDataSource.LoadMoviesCallback {
             override fun onMoviesLoaded(movies: List<MovieList>?) {
-                val movieList = ArrayList<DataEntity>()
+                val movieList = ArrayList<MovieEntity>()
                 if (movies != null) {
                     for (response in movies) {
                         with(response) {
-                            val movie = DataEntity(
+                            val movie = MovieEntity(
                                 id,
                                 title,
                                 posterPath,
@@ -65,16 +65,16 @@ class FakeMovieCatalogueRepository(private val remoteDataSource: RemoteDataSourc
         return movieDetailResult
     }
 
-    override fun getTvShows(): LiveData<List<DataEntity>> {
-        val tvResult = MutableLiveData<List<DataEntity>>()
+    override fun getTvShows(): LiveData<List<MovieEntity>> {
+        val tvResult = MutableLiveData<List<MovieEntity>>()
 
         remoteDataSource.getTvShows(object : RemoteDataSource.LoadTvShowsCallback {
             override fun onTvShowsLoaded(tvShows: List<TvShowList>?) {
-                val tvList = ArrayList<DataEntity>()
+                val tvList = ArrayList<MovieEntity>()
                 if (tvShows != null) {
                     for (response in tvShows) {
                         with(response) {
-                            val tvShow = DataEntity(
+                            val tvShow = MovieEntity(
                                 id,
                                 name,
                                 posterPath,

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -57,6 +58,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
     //lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
@@ -68,6 +70,10 @@ dependencies {
 
     //espresso idling resource
     implementation "androidx.test.espresso:espresso-idling-resource:$idlingResVersion"
+
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"

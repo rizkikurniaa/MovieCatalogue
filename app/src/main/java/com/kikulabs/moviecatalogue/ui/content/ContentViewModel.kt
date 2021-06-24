@@ -5,6 +5,6 @@ import com.kikulabs.moviecatalogue.data.source.MovieCatalogueRepository
 
 class ContentViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) :
     ViewModel() {
-    fun getMovie() = movieCatalogueRepository.getMovies()
-    fun getTvShow() = movieCatalogueRepository.getTvShows()
+    fun getMovie(sort: String) = movieCatalogueRepository.getMovies(sort)
+    fun getTvShow(sort: String) = movieCatalogueRepository.getTvShows(sort)
 }

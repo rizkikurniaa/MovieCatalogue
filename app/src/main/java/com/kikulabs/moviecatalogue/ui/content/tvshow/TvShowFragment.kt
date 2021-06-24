@@ -5,17 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.MovieEntity
 import com.kikulabs.moviecatalogue.databinding.FragmentTvShowBinding
-import com.kikulabs.moviecatalogue.ui.content.ContentAdapter
+import com.kikulabs.moviecatalogue.ui.content.movie.MovieAdapter
 import com.kikulabs.moviecatalogue.ui.content.ContentCallback
 import com.kikulabs.moviecatalogue.ui.content.ContentViewModel
 import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
+import com.kikulabs.moviecatalogue.utils.SortUtils.BEST_VOTE
 import com.kikulabs.moviecatalogue.viewmodel.ViewModelFactory
+import com.kikulabs.moviecatalogue.vo.Status
 
 class TvShowFragment : Fragment(), ContentCallback {
 
@@ -37,13 +40,23 @@ class TvShowFragment : Fragment(), ContentCallback {
                 this,
                 factory
             )[ContentViewModel::class.java]
-            val tvShowAdapter =
-                ContentAdapter(this@TvShowFragment)
+            val tvShowAdapter = TvShowAdapter()
 
-            viewModel.getTvShow().observe(viewLifecycleOwner, { tvShow ->
-                showProgressBar(false)
-                tvShowAdapter.setMovies(tvShow)
-                tvShowAdapter.notifyDataSetChanged()
+            viewModel.getTvShow(BEST_VOTE).observe(viewLifecycleOwner, { tvShow ->
+                if (tvShow != null) {
+                    when (tvShow.status) {
+                        Status.LOADING -> showProgressBar(true)
+                        Status.SUCCESS -> {
+                            showProgressBar(false)
+                            tvShowAdapter.submitList(tvShow.data)
+                            tvShowAdapter.setOnItemClicked(this)
+                        }
+                        Status.ERROR -> {
+                            showProgressBar(false)
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(fragmentTvShowBinding.rvTvShow) {
@@ -59,10 +72,10 @@ class TvShowFragment : Fragment(), ContentCallback {
         fragmentTvShowBinding.rvTvShow.isInvisible = state
     }
 
-    override fun onItemClicked(data: DataEntity) {
+    override fun onItemClicked(id: String) {
         startActivity(
             Intent(context, DetailMovieActivity::class.java)
-                .putExtra(DetailMovieActivity.EXTRA_MOVIE, data.id)
+                .putExtra(DetailMovieActivity.EXTRA_MOVIE, id)
                 .putExtra(DetailMovieActivity.EXTRA_TYPE, "TV_SHOW")
         )
     }

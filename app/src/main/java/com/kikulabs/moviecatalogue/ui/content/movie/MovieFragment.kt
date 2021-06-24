@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.MovieEntity
 import com.kikulabs.moviecatalogue.databinding.FragmentMovieBinding
-import com.kikulabs.moviecatalogue.ui.content.ContentAdapter
 import com.kikulabs.moviecatalogue.ui.content.ContentCallback
 import com.kikulabs.moviecatalogue.ui.content.ContentViewModel
 import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
+import com.kikulabs.moviecatalogue.utils.SortUtils.BEST_VOTE
 import com.kikulabs.moviecatalogue.viewmodel.ViewModelFactory
+import com.kikulabs.moviecatalogue.vo.Status
 
 class MovieFragment : Fragment(), ContentCallback {
 
@@ -38,13 +40,23 @@ class MovieFragment : Fragment(), ContentCallback {
                 this,
                 factory
             )[ContentViewModel::class.java]
-            val movieAdapter =
-                ContentAdapter(this@MovieFragment)
+            val movieAdapter = MovieAdapter()
 
-            viewModel.getMovie().observe(viewLifecycleOwner, { movies ->
-                showProgressBar(false)
-                movieAdapter.setMovies(movies)
-                movieAdapter.notifyDataSetChanged()
+            viewModel.getMovie(BEST_VOTE).observe(viewLifecycleOwner, { movies ->
+                if (movies != null) {
+                    when (movies.status) {
+                        Status.LOADING -> showProgressBar(true)
+                        Status.SUCCESS -> {
+                            showProgressBar(false)
+                            movieAdapter.submitList(movies.data)
+                            movieAdapter.setOnItemClicked(this)
+                        }
+                        Status.ERROR -> {
+                            showProgressBar(false)
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(fragmentMovieBinding.rvMovie) {
@@ -60,10 +72,10 @@ class MovieFragment : Fragment(), ContentCallback {
         fragmentMovieBinding.rvMovie.isInvisible = state
     }
 
-    override fun onItemClicked(data: DataEntity) {
+    override fun onItemClicked(id: String) {
         startActivity(
             Intent(context, DetailMovieActivity::class.java)
-                .putExtra(DetailMovieActivity.EXTRA_MOVIE, data.id)
+                .putExtra(DetailMovieActivity.EXTRA_MOVIE, id)
                 .putExtra(DetailMovieActivity.EXTRA_TYPE, "MOVIE")
         )
     }

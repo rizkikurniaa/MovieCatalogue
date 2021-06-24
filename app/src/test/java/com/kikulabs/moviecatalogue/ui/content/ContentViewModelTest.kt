@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.kikulabs.moviecatalogue.data.source.MovieCatalogueRepository
-import com.kikulabs.moviecatalogue.data.source.local.entity.DataEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.MovieEntity
 import com.kikulabs.moviecatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -29,7 +29,7 @@ class ContentViewModelTest {
     private lateinit var movieCatalogueRepository: MovieCatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<List<DataEntity>>
+    private lateinit var observer: Observer<List<MovieEntity>>
 
     @Before
     fun setUp() {
@@ -39,7 +39,7 @@ class ContentViewModelTest {
     @Test
     fun getMovie() {
         val dummyMovies = DataDummy.getMovies()
-        val movies = MutableLiveData<List<DataEntity>>()
+        val movies = MutableLiveData<List<MovieEntity>>()
         movies.value = dummyMovies
 
         Mockito.`when`(movieCatalogueRepository.getMovies()).thenReturn(movies)
@@ -55,7 +55,7 @@ class ContentViewModelTest {
     @Test
     fun getTvShow() {
         val dummyTvShow = DataDummy.getTvShows()
-        val tvShows = MutableLiveData<List<DataEntity>>()
+        val tvShows = MutableLiveData<List<MovieEntity>>()
         tvShows.value = dummyTvShow
 
         Mockito.`when`(movieCatalogueRepository.getTvShows()).thenReturn(tvShows)

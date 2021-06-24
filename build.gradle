@@ -45,4 +45,6 @@ ext {
     retrofitVersion = '2.9.0'
     okhttpVersion = '4.9.0'
     idlingResVersion = '3.3.0'
+    pagingVersion = '2.1.1'
+    roomVersion = '2.2.6'
 }

@@ -9,4 +9,9 @@
     <string name="movies_poster">Movie\'s Poster</string>
     <string name="release_date">Release date</string>
     <string name="rating">Rating</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">Tv Shows</string>
+    <string name="favorites">Favorites</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
