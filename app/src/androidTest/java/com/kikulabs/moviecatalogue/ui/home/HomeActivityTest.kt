@@ -82,7 +82,7 @@ class HomeActivityTest {
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                1,
+                0,
                 click()
             )
         )
