@@ -14,7 +14,8 @@ import com.kikulabs.moviecatalogue.databinding.ItemsContentBinding
 import com.kikulabs.moviecatalogue.ui.content.ContentCallback
 import com.kikulabs.moviecatalogue.utils.DateChange
 
-class TvShowAdapter: PagedListAdapter<TvShowEntity, TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
+class TvShowAdapter :
+    PagedListAdapter<TvShowEntity, TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {

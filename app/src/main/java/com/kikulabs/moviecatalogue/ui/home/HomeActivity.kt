@@ -52,4 +52,8 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return loadFragment(fragment)
     }
+
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
+    }
 }

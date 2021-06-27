@@ -1,4 +1,4 @@
-package com.kikulabs.moviecatalogue.ui.favorite.movie
+package com.kikulabs.moviecatalogue.ui.favorite.tvshow
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,25 +8,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kikulabs.moviecatalogue.databinding.FragmentFavoriteMoviesBinding
+import com.kikulabs.moviecatalogue.databinding.FragmentFavoriteTvShowsBinding
 import com.kikulabs.moviecatalogue.ui.content.ContentCallback
-import com.kikulabs.moviecatalogue.ui.content.movie.MovieAdapter
+import com.kikulabs.moviecatalogue.ui.content.tvshow.TvShowAdapter
 import com.kikulabs.moviecatalogue.ui.detail.DetailMovieActivity
 import com.kikulabs.moviecatalogue.ui.favorite.FavoriteViewModel
 import com.kikulabs.moviecatalogue.viewmodel.ViewModelFactory
 
-class FavoriteMoviesFragment : Fragment(), ContentCallback {
-    private lateinit var fragmentFavoriteMoviesBinding: FragmentFavoriteMoviesBinding
+
+class FavoriteTvShowsFragment : Fragment(), ContentCallback {
+    private lateinit var fragmentFavoriteTvShowsBinding: FragmentFavoriteTvShowsBinding
     private lateinit var viewModel: FavoriteViewModel
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var tvShowAdapter: TvShowAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentFavoriteMoviesBinding =
-            FragmentFavoriteMoviesBinding.inflate(layoutInflater, container, false)
-        return fragmentFavoriteMoviesBinding.root
+        fragmentFavoriteTvShowsBinding =
+            FragmentFavoriteTvShowsBinding.inflate(layoutInflater, container, false)
+        return fragmentFavoriteTvShowsBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,19 +37,19 @@ class FavoriteMoviesFragment : Fragment(), ContentCallback {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
-            movieAdapter = MovieAdapter()
+            tvShowAdapter = TvShowAdapter()
 
-            viewModel.getFavMovies().observe(viewLifecycleOwner, { favMovies ->
+            viewModel.getFavTvShows().observe(viewLifecycleOwner, { favMovies ->
                 if (favMovies != null) {
-                    movieAdapter.submitList(favMovies)
-                    movieAdapter.setOnItemClicked(this)
+                    tvShowAdapter.submitList(favMovies)
+                    tvShowAdapter.setOnItemClicked(this)
                 }
             })
 
-            with(fragmentFavoriteMoviesBinding.rvFavoriteMovies) {
+            with(fragmentFavoriteTvShowsBinding.rvFavoriteTvShows) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = movieAdapter
+                adapter = tvShowAdapter
             }
         }
     }
@@ -57,8 +58,7 @@ class FavoriteMoviesFragment : Fragment(), ContentCallback {
         startActivity(
             Intent(context, DetailMovieActivity::class.java)
                 .putExtra(DetailMovieActivity.EXTRA_MOVIE, id)
-                .putExtra(DetailMovieActivity.EXTRA_TYPE, "MOVIE")
+                .putExtra(DetailMovieActivity.EXTRA_TYPE, "TV_SHOW")
         )
     }
-
 }

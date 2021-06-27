@@ -7,7 +7,7 @@ import com.kikulabs.moviecatalogue.data.source.MovieCatalogueRepository
 import com.kikulabs.moviecatalogue.di.Injection
 import com.kikulabs.moviecatalogue.ui.content.ContentViewModel
 import com.kikulabs.moviecatalogue.ui.detail.DetailMovieViewModel
-import com.kikulabs.moviecatalogue.ui.favorite.movie.FavoriteMovieViewModel
+import com.kikulabs.moviecatalogue.ui.favorite.FavoriteViewModel
 
 class ViewModelFactory private constructor(private val movieCatalogueRepository: MovieCatalogueRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -30,8 +30,8 @@ class ViewModelFactory private constructor(private val movieCatalogueRepository:
             modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
                 DetailMovieViewModel(movieCatalogueRepository) as T
             }
-            modelClass.isAssignableFrom(FavoriteMovieViewModel::class.java) -> {
-                FavoriteMovieViewModel(movieCatalogueRepository) as T
+            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
+                FavoriteViewModel(movieCatalogueRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

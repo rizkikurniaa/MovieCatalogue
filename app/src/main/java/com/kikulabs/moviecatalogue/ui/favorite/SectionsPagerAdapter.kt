@@ -1,4 +1,4 @@
-package com.kikulabs.moviecatalogue.ui.home
+package com.kikulabs.moviecatalogue.ui.favorite
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.kikulabs.moviecatalogue.R
-import com.kikulabs.moviecatalogue.ui.content.movie.MovieFragment
-import com.kikulabs.moviecatalogue.ui.content.tvshow.TvShowFragment
 import com.kikulabs.moviecatalogue.ui.favorite.movie.FavoriteMoviesFragment
+import com.kikulabs.moviecatalogue.ui.favorite.tvshow.FavoriteTvShowsFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -21,7 +20,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment =
         when (position) {
             0 -> FavoriteMoviesFragment()
-            1 -> TvShowFragment()
+            1 -> FavoriteTvShowsFragment()
             else -> Fragment()
         }
 

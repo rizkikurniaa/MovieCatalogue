@@ -78,7 +78,7 @@ class MovieCatalogueRepository private constructor(
             override fun loadFromDb(): LiveData<MovieEntity> = localDataSource.getMovieById(movieId)
 
             override fun shouldFetch(movie: MovieEntity?): Boolean =
-                movie != null
+                movie == null
 
             override fun createCall(): LiveData<ApiResponse<MovieDetailResponse>> =
                 remoteDataSource.getDetailMovie(movieId.toString())
@@ -160,7 +160,7 @@ class MovieCatalogueRepository private constructor(
                 localDataSource.getTvShowById(tvShowId)
 
             override fun shouldFetch(movie: TvShowEntity?): Boolean =
-                movie != null
+                movie == null
 
             override fun createCall(): LiveData<ApiResponse<TvShowDetailResponse>> =
                 remoteDataSource.getDetailTvShow(tvShowId.toString())

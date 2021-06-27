@@ -1,14 +1,14 @@
 package com.kikulabs.moviecatalogue.utils
 
 import com.kikulabs.moviecatalogue.data.source.local.entity.MovieEntity
-import com.kikulabs.moviecatalogue.data.source.local.entity.DetailEntity
+import com.kikulabs.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.kikulabs.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
 import com.kikulabs.moviecatalogue.data.source.remote.response.movie.MovieList
 import com.kikulabs.moviecatalogue.data.source.remote.response.tv.TvShowDetailResponse
 import com.kikulabs.moviecatalogue.data.source.remote.response.tv.TvShowList
 
 object DataDummy {
-    val dateChange = DateChange()
+    private val dateChange = DateChange()
 
     fun getMovies(): List<MovieEntity> {
         return listOf(
@@ -19,7 +19,8 @@ object DataDummy {
                 "2021-03-31",
                 7.1,
                 "en",
-                "Alice, a young hearing-impaired girl who, after a supposed visitation from the Virgin Mary, is inexplicably able to hear, speak and heal the sick. As word spreads and people from near and far flock to witness her miracles, a disgraced journalist hoping to revive his career visits the small New England town to investigate. When terrifying events begin to happen all around, he starts to question if these phenomena are the works of the Virgin Mary or something much more sinister."
+                "Alice, a young hearing-impaired girl who, after a supposed visitation from the Virgin Mary, is inexplicably able to hear, speak and heal the sick. As word spreads and people from near and far flock to witness her miracles, a disgraced journalist hoping to revive his career visits the small New England town to investigate. When terrifying events begin to happen all around, he starts to question if these phenomena are the works of the Virgin Mary or something much more sinister.",
+                false
             ),
             MovieEntity(
                 823855,
@@ -28,7 +29,8 @@ object DataDummy {
                 "2021-05-14",
                 7.0,
                 "en",
-                "A special crimes investigator forms an unlikely bond with a serial killer to bring down a global child sex trafficking syndicate."
+                "A special crimes investigator forms an unlikely bond with a serial killer to bring down a global child sex trafficking syndicate.",
+                false
             ),
             MovieEntity(
                 460465,
@@ -37,64 +39,70 @@ object DataDummy {
                 "2021-04-07",
                 7.6,
                 "en",
-                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe."
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                false
             )
         )
     }
 
-    fun getDetailMovie(): DetailEntity {
-        return DetailEntity(
-            632357,
-            "The Unholy",
-            "/6wxfWZxQcuv2QgxIQKj0eYTdKTv.jpg",
-            dateChange.changeFormatDate("2021-03-31").toString(),
-            7.1,
+    fun getDetailMovie(): MovieEntity {
+        return MovieEntity(
+            460465,
+            "Mortal Kombat",
+            "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
+            dateChange.changeFormatDate("2021-04-07").toString(),
+            7.6,
             "en",
-            "Alice, a young hearing-impaired girl who, after a supposed visitation from the Virgin Mary, is inexplicably able to hear, speak and heal the sick. As word spreads and people from near and far flock to witness her miracles, a disgraced journalist hoping to revive his career visits the small New England town to investigate. When terrifying events begin to happen all around, he starts to question if these phenomena are the works of the Virgin Mary or something much more sinister."
+            "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+            false
         )
     }
 
-    fun getTvShows(): List<MovieEntity> {
+    fun getTvShows(): List<TvShowEntity> {
         return listOf(
-            MovieEntity(
+            TvShowEntity(
                 63174,
                 "Lucifer",
                 "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
                 "2016-01-25",
                 8.5,
                 "en",
-                "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape."
+                "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+                false
             ),
-            MovieEntity(
+            TvShowEntity(
                 60735,
                 "The Flash",
                 "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                 "2014-10-07",
                 7.7,
                 "en",
-                "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash."
+                "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
+                false
             ),
-            MovieEntity(
+            TvShowEntity(
                 71712,
                 "The Good Doctor",
                 "/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
                 "2017-09-25",
                 8.6,
                 "en",
-                "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives"
+                "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
+                false
             )
         )
     }
 
-    fun getDetailTvShow(): DetailEntity {
-        return DetailEntity(
-            60735,
-            "The Flash",
-            "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
-            dateChange.changeFormatDate("2014-10-07").toString(),
-            7.7,
+    fun getDetailTvShow(): TvShowEntity {
+        return TvShowEntity(
+            63174,
+            "Lucifer",
+            "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+            dateChange.changeFormatDate("2016-01-25").toString(),
+            8.5,
             "en",
-            "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash."
+            "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+            false
         )
     }
 
