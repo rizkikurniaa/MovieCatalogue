@@ -54,6 +54,15 @@ class FavoriteTvShowsFragment : Fragment(), ContentCallback {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavTvShows().observe(viewLifecycleOwner, { favTvShow ->
+            if (favTvShow != null) {
+                tvShowAdapter.submitList(favTvShow)
+            }
+        })
+    }
+
     override fun onItemClicked(id: String) {
         startActivity(
             Intent(context, DetailMovieActivity::class.java)

@@ -53,6 +53,15 @@ class FavoriteMoviesFragment : Fragment(), ContentCallback {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavMovies().observe(viewLifecycleOwner, { favMovies ->
+            if (favMovies != null) {
+                movieAdapter.submitList(favMovies)
+            }
+        })
+    }
+
     override fun onItemClicked(id: String) {
         startActivity(
             Intent(context, DetailMovieActivity::class.java)
